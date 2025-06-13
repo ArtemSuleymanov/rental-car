@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Home from './pages/Home'
-import Catalog from './pages/Catalog'
 import CarDetails from './pages/CarDetails'
 import Header from './components/Header/Header';
+import Home from './pages/Home/Home';
+import Catalog from './pages/Catalog/Catalog';
 
 function App() {
   return (

@@ -1,0 +1,15 @@
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background-image: image-set(
+    url('../../../public/img/car_1x.webp') 1x,
+    url('../../../public/img/car_2x.webp') 2x
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
