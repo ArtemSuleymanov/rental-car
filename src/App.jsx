@@ -1,9 +1,20 @@
-import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Home from './pages/Home'
+import Catalog from './pages/Catalog'
+import CarDetails from './pages/CarDetails'
+import Header from './components/Header/Header';
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/catalog/:id" element={<CarDetails />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App
