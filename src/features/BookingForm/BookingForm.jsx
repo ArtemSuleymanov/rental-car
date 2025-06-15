@@ -25,7 +25,7 @@ const BookingForm = () => {
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values); // тут може бути axios POST
+    console.log(values); 
     alert('✅ Car successfully booked!');
     resetForm();
   };
