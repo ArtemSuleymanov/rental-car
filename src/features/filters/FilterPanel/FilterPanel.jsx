@@ -27,7 +27,7 @@ const FilterPanel = ({ onSearch }) => {
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form className={styles.form}>
         <Field as="select" name="brand" className={styles.select}>
-          <option value="">Car brand</option>
+          <option value="">Choose a brand</option>
           {Array.isArray(brands) &&
             brands.map((b) => (
               <option key={b} value={b}>
@@ -37,7 +37,7 @@ const FilterPanel = ({ onSearch }) => {
         </Field>
 
         <Field as="select" name="rentalPrice" className={styles.select}>
-          <option value="">Price / 1 hour</option>
+          <option value="">Choose a price</option>
           {[30, 40, 50, 60, 70, 80].map((p) => (
             <option key={p} value={p}>
               To ${p}

@@ -1,12 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './CarCard.module.css';
 
 const CarCard = ({ car }) => {
+  const navigate = useNavigate();
+
   const {
-    brand, model, year, img, rentalPrice, address, type, mileage, rentalCompany,
+    id, brand, model, year, img, rentalPrice, address, type, mileage, rentalCompany,
   } = car;
 
   const city = address.split(',')[1]?.trim();
   const country = address.split(',')[2]?.trim();
+
+  const handleReadMore = () => {
+    navigate(`/catalog/${id}`);
+  };
 
   return (
     <div className={styles.card}>
@@ -21,7 +28,9 @@ const CarCard = ({ car }) => {
           <li>{type}</li>
           <li>{mileage.toLocaleString()} km</li>
         </ul>
-        <button className={styles.button}>Read more</button>
+        <button className={styles.button} onClick={handleReadMore}>
+          Read more
+        </button>
       </div>
     </div>
   );
