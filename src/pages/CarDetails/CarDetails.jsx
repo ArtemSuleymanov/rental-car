@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./CarDetails.module.css";
 import BookingForm from "../../features/BookingForm/BookingForm";
+import sprite from "../../assets/sprite.svg";
 
 const CarDetails = () => {
   const { id } = useParams();
@@ -10,10 +11,21 @@ const CarDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getCityCountry = (address) => {
+    if (!address) return null;
+    const parts = address.split(",").map(part => part.trim());
+    if (parts.length >= 2) {
+      return parts.slice(-2).join(", ");
+    }
+    return address;
+  };
+
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const response = await axios.get(`https://car-rental-api.goit.global/cars/${id}`);
+        const response = await axios.get(
+          `https://car-rental-api.goit.global/cars/${id}`
+        );
         setCar(response.data);
       } catch {
         setError("Car not found");
@@ -41,6 +53,7 @@ const CarDetails = () => {
     rentalConditions,
     accessories,
     functionalities,
+    address,
   } = car;
 
   const formatMileage = mileage
@@ -57,37 +70,101 @@ const CarDetails = () => {
         <h2>
           {brand} {model}, {year}
         </h2>
-        <p className={styles.location}>Mileage: {formatMileage} km</p>
-        <p className={styles.price}>${rentalPrice}</p>
+
+        {address ? (
+          <p className={styles.location}>
+            <svg width="16" height="16">
+              <use href={`${sprite}#icon-Location`} />
+            </svg>{" "}
+            {getCityCountry(address)}
+          </p>
+        ) : (
+          <p className={styles.location}>Location not available</p>
+        )}
+
+        <p className={styles.mileage}>
+          <svg width="16" height="16">
+            <use href={`${sprite}#icon-road`} />
+          </svg>
+          Mileage: {formatMileage} km
+        </p>
+
+        <p className={styles.price}>
+          <svg width="16" height="16">
+            <use href={`${sprite}#icon-currency-dollar`} />
+          </svg>
+          ${rentalPrice}
+        </p>
+
         <p>{description}</p>
 
         <h3>Rental Conditions:</h3>
         <ul>
           {Array.isArray(rentalConditions) ? (
             rentalConditions.map((condition, index) => (
-              <li key={index}>✔ {condition}</li>
+              <li key={index}>
+                <svg width="16" height="16">
+                  <use href={`${sprite}#icon-check-circle`} />
+                </svg>{" "}
+                {condition}
+              </li>
             ))
           ) : (
-            <li>Rental conditions not available</li>
+            <li>
+              <svg width="16" height="16">
+                <use href={`${sprite}#icon-info`} />
+              </svg>{" "}
+              Rental conditions not available
+            </li>
           )}
         </ul>
 
         <h3>Car Specifications:</h3>
         <ul>
-          <li>Year: {year}</li>
-          <li>Type: {type}</li>
-          <li>Fuel Consumption: {fuelConsumption}</li>
-          <li>Engine Size: {engineSize}</li>
+          <li>
+            <svg width="16" height="16">
+              <use href={`${sprite}#icon-calendar`} />
+            </svg>{" "}
+            Year: {year}
+          </li>
+          <li>
+            <svg width="16" height="16">
+              <use href={`${sprite}#icon-car`} />
+            </svg>{" "}
+            Type: {type}
+          </li>
+          <li>
+            <svg width="16" height="16">
+              <use href={`${sprite}#icon-fuel-pump`} />
+            </svg>{" "}
+            Fuel Consumption: {fuelConsumption}
+          </li>
+          <li>
+            <svg width="16" height="16">
+              <use href={`${sprite}#icon-gear`} />
+            </svg>{" "}
+            Engine Size: {engineSize}
+          </li>
         </ul>
 
         <h3>Accessories and functionalities:</h3>
         <ul>
           {Array.isArray(accessories) && Array.isArray(functionalities) ? (
             [...accessories, ...functionalities].map((item, index) => (
-              <li key={index}>✔ {item}</li>
+              <li key={index}>
+                <svg width="16" height="16">
+                  <use href={`${sprite}#icon-check-circle`} />
+                </svg>{" "}
+                {item}
+              </li>
             ))
           ) : (
-            <li>No accessories or functionalities listed</li>
+            <li>
+              <svg width="16" height="16">
+                <use href={`${sprite}#icon-info`} />
+              </svg>{" "}
+              No accessories or functionalities listed
+            </li>
           )}
         </ul>
       </div>
