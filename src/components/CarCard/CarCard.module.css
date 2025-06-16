@@ -1,0 +1,84 @@
+.img {
+  border-radius: 14px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: fill 0.3s ease;
+}
+
+.icon use {
+  fill: transparent;
+  transition: fill 0.3s ease;
+}
+
+.icon:hover,
+.icon:focus use {
+  fill: var(--button);
+}
+
+
+.imgWrapper {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 14px;
+  color: #8a8a89;
+  margin: 12px 0;
+  list-style: none;
+  padding: 0;
+}
+
+.meta li {
+  position: relative;
+}
+
+.meta li:not(:first-child)::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background-color: #8a8a89;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+.button {
+  border-radius: 12px;
+  width: 276px;
+  height: 44px;
+  background: var(--button);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--white);
+}
+
+.button:hover {
+  background-color: #0b44cd;
+}

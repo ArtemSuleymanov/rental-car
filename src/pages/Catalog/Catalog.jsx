@@ -7,7 +7,7 @@ const Catalog = () => {
   const dispatch = useDispatch();
 
   const handleSearch = (filters) => {
-    dispatch(fetchCars(filters));
+    dispatch(fetchCars({ filters, page: 1 }));
   };
 
   return (
@@ -19,4 +19,3 @@ const Catalog = () => {
 };
 
 export default Catalog;
-
