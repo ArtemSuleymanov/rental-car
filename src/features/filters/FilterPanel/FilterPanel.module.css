@@ -1,3 +1,104 @@
-.form{
-    margin-top: 152px;
+.form {
+  margin-top: 152px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.label {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  color: var(--gray);
+  padding-bottom: 8px;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  border-radius: 12px;
+  padding-left: 16px;
+  padding-right: 40px;
+  min-width: 204px;
+  height: 44px;
+  background: var(--inputs);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--main);
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+.select:focus + .icon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.mileageInputs {
+  display: flex;
+  gap: 2px;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+
+.input {
+  border: none;
+  padding: 12px 24px;
+  max-width: 160px;
+  min-height: 44px;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  color: #121417;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #121417;
+  opacity: 0.6;
+}
+
+.divider {
+  width: 1px;
+  background-color: #c3c3c3;
+  opacity: 0.5;
+  height: auto;
+  margin: 8px 0;
+}
+
+.button {
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  background: var(--button);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--white);
+  margin-top: 20px;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--button-hover);
 }
