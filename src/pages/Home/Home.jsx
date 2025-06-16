@@ -11,12 +11,14 @@ const Home = () => {
   return (
     <section className={s.hero}>
       <div className={s.hero_content}>
-        <h1>Find your perfect rental car</h1>
-        <p>Reliable and budget-friendly rentals for any journey</p>
+        <h1 className={s.hero_title}>Find your perfect rental car</h1>
+        <p className={s.hero_txt}>
+          Reliable and budget-friendly rentals for any journey
+        </p>
+        <button type="button" className={s.btn} onClick={handleClick}>
+          <p className={s.hero_btn_txt}>View Catalog</p>
+        </button>
       </div>
-      <button type="button" className={s.btn} onClick={handleClick}>
-        <p>View Catalog</p>
-      </button>
     </section>
   );
 };

@@ -6,10 +6,59 @@
   text-align: center;
   color: white;
   background-image: image-set(
-    url('../../../public/img/car_1x.webp') 1x,
-    url('../../../public/img/car_2x.webp') 2x
+    url("../../../public/img/car_1x.webp") 1x,
+    url("../../../public/img/car_2x.webp") 2x
   );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.hero_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 436px;
+}
+
+.hero_title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 120%;
+  text-align: center;
+  color: var(--white);
+  padding-bottom: 16px;
+}
+
+.hero_txt {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  text-align: center;
+  color: var(--white);
+  padding-bottom: 40px;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 12px 99px;
+  min-width: 276px;
+  height: 44px;
+  background: var(--button);
+  border: none;
+}
+
+.hero_btn_txt {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--white);
+}
+
+.btn:hover,
+.btn:focus {
+  background: var(--button-hover);
 }

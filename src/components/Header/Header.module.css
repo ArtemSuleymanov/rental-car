@@ -1,9 +1,32 @@
-.header{
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
     display: flex;
     justify-content: space-between;
     height: 68px;
+    border-bottom: 1px solid var(--badges);
+    padding: 24px 120px;
+    background-color: #fff; 
 }
 
-.logo{
-    
+.link{
+    font-family: var(--font-family);
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+text-align: center;
+color: var(--main);
+}
+
+.link:not(:last-child) {
+  margin-right: 32px;
+}
+
+
+.link:hover,
+.link:focus{
+color: var(--button-hover);
 }
