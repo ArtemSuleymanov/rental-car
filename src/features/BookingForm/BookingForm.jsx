@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import s from "./BookingForm.module.css"
 
 const BookingForm = () => {
   const initialValues = {
@@ -31,7 +32,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div>
+    <div className={s.bookingForm}>
       <h3>Book your car now</h3>
       <p>Stay connected! We are always ready to help you.</p>
       
