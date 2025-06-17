@@ -1,3 +1,65 @@
-.bookingForm{
-    padding-top: 40px;
+.bookingForm {
+  border: 1px solid var(--gray-light);
+  border-radius: 10px;
+  padding: 32px;
+  max-width: 640px;
+  background: var(--white);
+  margin-top: 40px;
+}
+
+.bookingTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+  padding-bottom: 8px;
+}
+
+.bookingTxt {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+  padding-bottom: 24px;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.inputField {
+  border-radius: 12px;
+  padding: 12px 20px;
+  min-width: 576px;
+  height: 48px;
+  background: var(--inputs);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+}
+
+.sendBtn {
+  border-radius: 12px;
+  width: 156px;
+  height: 44px;
+  background: var(--button);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--white);
+  margin-left: 210px;
+}
+
+.sendBtn:hover {
+  background-color: #0b44cd;
 }

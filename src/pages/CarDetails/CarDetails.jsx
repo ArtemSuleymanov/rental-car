@@ -64,6 +64,7 @@ const CarDetails = () => {
     <div className={s.carDetails}>
       <div className={s.imageSection}>
         <img src={img} alt={`${brand} ${model}`} className={s.carImage} />
+        <BookingForm />
       </div>
 
       <div className={s.detailsSection}>
@@ -162,8 +163,6 @@ const CarDetails = () => {
           )}
         </ul>
       </div>
-
-      <BookingForm />
     </div>
   );
 };

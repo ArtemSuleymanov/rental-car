@@ -1,15 +1,3 @@
-/* .carDetails{
-    display: flex;
-    flex-direction: column;
-    margin-top: 152px;
-}
-
-.carImage{
-    border-radius: 19px;
-width: 640px;
-height: 512px;
-} */
-
 .carDetails {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -18,6 +6,7 @@ height: 512px;
   padding-right: 120px;
   padding-bottom: 104px;
   align-items: start;
+  width: 1200px;
 }
 
 .imageSection {
@@ -27,6 +16,7 @@ height: 512px;
 
 .carImage {
   border-radius: 19px;
+  max-width: 640px;
 }
 
 .detailsSection {
