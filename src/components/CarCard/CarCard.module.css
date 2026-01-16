@@ -9,23 +9,34 @@
   gap: 8px;
 }
 
-.icon {
+.heartButton {
   position: absolute;
   top: 14px;
   right: 14px;
   background-color: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  transition: fill 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.icon use {
-  fill: transparent;
-  transition: fill 0.3s ease;
+.icon {
+  fill: transparent;         
+  stroke: rgba(255, 255, 255, 0.8); 
+  stroke-width: 2px;        
+  transition: all 0.3s ease;
 }
 
-.icon:hover,
-.icon:focus use {
-  fill: var(--button);
+.heartButton:hover .icon {
+  stroke: var(--button); 
+  transform: scale(1.1); 
+}
+
+.active .icon {
+  fill: var(--button);   
+  stroke: var(--button); 
 }
 
 

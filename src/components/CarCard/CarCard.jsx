@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import s from "./CarCard.module.css";
 import sprite from "../../assets/sprite.svg";
+import { useState } from "react";
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
+
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const {
     id,
@@ -25,13 +28,23 @@ const CarCard = ({ car }) => {
     navigate(`/catalog/${id}`);
   };
 
+  const handleFavoriteClick = () =>{
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <div className={s.card}>
       <div className={s.imgWrapper}>
         <img src={img} alt={`${brand} ${model}`} className={s.img} />
-        <svg className={s.icon} width="24" height="24">
-          <use href={`${sprite}#icon-like`} />
-        </svg>
+        <button 
+          className={`${s.heartButton} ${isFavorite ? s.active : ''}`} 
+          onClick={handleFavoriteClick}
+          type="button" 
+        >
+          <svg className={s.icon} width="20" height="20">
+            <use href={`${sprite}#icon-like`} />
+          </svg>
+        </button>
       </div>
       <div className={s.content}>
         <div className={s.info}>
