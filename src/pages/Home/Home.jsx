@@ -16,7 +16,7 @@ const Home = () => {
     loop
     playsInline
 >
-  <source src="/public/video/car_video.mp4" type="video/mp4"/>
+  <source src="video/car_video.mp4" type="video/mp4"/>
 </video>
 <div className={s.hero_overlay}></div>
       <div className={s.hero_content}>
