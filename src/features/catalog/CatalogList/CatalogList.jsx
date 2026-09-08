@@ -5,10 +5,30 @@ import { fetchCars } from '../catalogSlice';
 
 const CatalogList = () => {
   const dispatch = useDispatch();
-  const { cars, page, totalPages, filters, loading } = useSelector((state) => state.catalog);
+
+  const catalog = useSelector((state) => state.catalog);
+
+console.log('CATALOG STATE:', catalog);
+
+const cars = Array.isArray(catalog?.cars) ? catalog.cars : [];
+const page = catalog?.page ?? 1;
+const totalPages = catalog?.totalPages ?? 1;
+const filters = catalog?.filters ?? {};
+const status = catalog?.status ?? 'idle';
+
+  const loading = status === 'loading';
 
   const handleLoadMore = () => {
-    dispatch(fetchCars({ filters, page: page + 1 }));
+    if (loading || page >= totalPages) {
+      return;
+    }
+
+    dispatch(
+      fetchCars({
+        filters,
+        page: page + 1,
+      })
+    );
   };
 
   return (
@@ -24,6 +44,7 @@ const CatalogList = () => {
       {page < totalPages && (
         <div className={styles.loadMoreWrapper}>
           <button
+            type="button"
             className={styles.loadMoreButton}
             onClick={handleLoadMore}
             disabled={loading}

@@ -1,90 +1,161 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axios';
 
+const initialFilters = {
+  brand: '',
+  rentalPrice: '',
+  minMileage: '',
+  maxMileage: '',
+};
+
 export const fetchCars = createAsyncThunk(
   'catalog/fetchCars',
-  async ({ filters, page = 1 }, { rejectWithValue }) => {
+  async ({ filters = initialFilters, page = 1 }, { rejectWithValue }) => {
     try {
       const params = {
-        ...filters,
         page,
         limit: 12,
       };
 
-      const { data } = await axiosInstance.get('/cars', { params });
+      if (filters.brand) {
+        params.brand = filters.brand;
+      }
 
+      if (filters.rentalPrice) {
+        params.rentalPrice = filters.rentalPrice;
+      }
+
+      if (filters.minMileage) {
+        params.minMileage = filters.minMileage;
+      }
+
+      if (filters.maxMileage) {
+        params.maxMileage = filters.maxMileage;
+      }
+
+      const { data } = await axiosInstance.get('/cars', {
+        params,
+      });
       return {
-        cars: data.cars,
-        page,
+        cars: Array.isArray(data.cars) ? data.cars : [],
+        page: data.page,
         totalPages: data.totalPages,
         filters,
       };
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
 export const fetchBrands = createAsyncThunk(
   'catalog/fetchBrands',
-  async () => {
-    const { data } = await axiosInstance.get('/brands');
-    return data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get('/brands');
+
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
   }
 );
 
 const catalogSlice = createSlice({
   name: 'catalog',
+
   initialState: {
     cars: [],
-    status: 'idle',
-    error: null,
     brands: [],
-    filters: {
-      brand: '',
-      rentalPrice: '',
-      minMileage: '',
-      maxMileage: '',
-    },
+    filters: initialFilters,
+
     page: 1,
     totalPages: 1,
+
+    status: 'idle',
+    error: null,
   },
+
   reducers: {
     setFilters: (state, action) => {
       state.filters = action.payload;
     },
+
     resetCars: (state) => {
       state.cars = [];
       state.page = 1;
       state.totalPages = 1;
-      state.status = 'idle';
-      state.error = null;
     },
   },
+
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCars.pending, (state) => {
+
+      // CARS
+      .addCase(fetchCars.pending, (state, action) => {
         state.status = 'loading';
+        state.error = null;
+
+        // При новом поиске очищаем старые машины
+        if (action.meta.arg.page === 1) {
+          state.cars = [];
+          state.page = 1;
+          state.totalPages = 1;
+        }
       })
+
       .addCase(fetchCars.fulfilled, (state, action) => {
-        const { cars, page, totalPages, filters } = action.payload;
+        const {
+          cars,
+          page,
+          totalPages,
+          filters,
+        } = action.payload;
 
         state.status = 'succeeded';
+
         state.page = page;
         state.totalPages = totalPages;
         state.filters = filters;
-        state.cars = page === 1 ? cars : [...state.cars, ...cars];
+
+        if (page === 1) {
+          state.cars = cars;
+        } else {
+          const existingIds = new Set(state.cars.map((car) => car.id));
+
+  const newCars = cars.filter((car) => !existingIds.has(car.id));
+
+  state.cars = [...state.cars, ...newCars];
+        }
       })
+
       .addCase(fetchCars.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // BRANDS
+      .addCase(fetchBrands.pending, (state) => {
+        state.error = null;
+      })
+
       .addCase(fetchBrands.fulfilled, (state, action) => {
         state.brands = action.payload;
+      })
+
+      .addCase(fetchBrands.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
 
-export const { setFilters, resetCars } = catalogSlice.actions;
+export const {
+  setFilters,
+  resetCars,
+} = catalogSlice.actions;
 
 export default catalogSlice.reducer;
