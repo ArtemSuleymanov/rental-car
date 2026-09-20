@@ -36,10 +36,32 @@ export const fetchCars = createAsyncThunk(
       const { data } = await axiosInstance.get('/cars', {
         params,
       });
+
+      console.log('API DATA:', data);
+      console.log('REQUEST PARAMS:', params);
+
+      const rawCars = Array.isArray(data.cars) ? data.cars : (Array.isArray(data) ? data : []);
+
+      const isBeckendPaginating = data.page != undefined;
+      const carsPerPage = 12;
+
+      let finalCars = rawCars;
+      let calculatedTotalPages = 1;
+
+      if (!isBeckendPaginating) {
+        const startIndex = (page - 1) * carsPerPage;
+        const endIndex = startIndex + carsPerPage;
+        finalCars = rawCars.slice(startIndex, endIndex);
+        calculatedTotalPages = Math.ceil(rawCars.length / carsPerPage);
+      } else {
+        calculatedTotalPages = data.totalPages || 1;
+      }
+
+
       return {
-        cars: Array.isArray(data.cars) ? data.cars : [],
-        page: data.page,
-        totalPages: data.totalPages,
+        cars: finalCars,
+        page: isBeckendPaginating ? Number(data.page) : page,
+        totalPages: calculatedTotalPages,
         filters,
       };
     } catch (error) {
@@ -122,15 +144,19 @@ const catalogSlice = createSlice({
         state.totalPages = totalPages;
         state.filters = filters;
 
-        if (page === 1) {
-          state.cars = cars;
-        } else {
-          const existingIds = new Set(state.cars.map((car) => car.id));
+        console.log('FULFILLED:', {
+          page,
+          carsFromServer: cars.length,
+          carsInStateBefore: state.cars.length,
+        });
 
-  const newCars = cars.filter((car) => !existingIds.has(car.id));
 
-  state.cars = [...state.cars, ...newCars];
-        }
+        const existingIds = new Set(state.cars.map((car) => car.id));
+
+        const newCars = cars.filter((car) => !existingIds.has(car.id));
+
+        state.cars = [...state.cars, ...newCars];
+
       })
 
       .addCase(fetchCars.rejected, (state, action) => {

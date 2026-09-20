@@ -11,7 +11,7 @@ const CatalogList = () => {
 console.log('CATALOG STATE:', catalog);
 
 const cars = Array.isArray(catalog?.cars) ? catalog.cars : [];
-const page = catalog?.page ?? 1;
+const page = Number(catalog?.page ?? 1);
 const totalPages = catalog?.totalPages ?? 1;
 const filters = catalog?.filters ?? {};
 const status = catalog?.status ?? 'idle';
